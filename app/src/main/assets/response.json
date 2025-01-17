@@ -1,0 +1,133 @@
+[
+  {
+    "id": 114,
+    "brand": "covergirl",
+    "name": "CoverGirl Outlast Longwear Lipstick",
+    "price": "10.99",
+    "price_sign": null,
+    "currency": null,
+    "image_link": "https://d3t32hsnjxo7q6.cloudfront.net/i/2d46e82f21b11f658a4378abcbd1c31b_ra,w158,h184_pa,w158,h184.png",
+    "product_link": "https://well.ca/products/covergirl-outlast-longwear-lipstick_105803.html",
+    "website_link": "https://well.ca",
+    "description": "With CoverGirl Outlast Longwear Lipstick you get both moisture and colour! No need to choose!This long lasting lipstick doesn’t flake or \ncrumble because it’s super-powered with moisture. It'll stays super fresh and \nsuper flexible all day, leaving you with a light weight but very pigmented lip look.",
+    "rating": null,
+    "category": "lipstick",
+    "product_type": "lipstick",
+    "tag_list": [],
+    "created_at": "2016-10-01T18:25:52.547Z",
+    "updated_at": "2017-12-27T01:50:37.669Z",
+    "product_api_url": "http://makeup-api.herokuapp.com/api/v1/products/114.json",
+    "api_featured_image": "//s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/114/original/open-uri20171223-4-fqgm96?1514062257",
+    "product_colors": [
+      {
+        "hex_value": "#51122B",
+        "colour_name": "Plum Fury"
+      },
+      {
+        "hex_value": "#A1211C",
+        "colour_name": "Red Siren"
+      },
+      {
+        "hex_value": "#C5777E",
+        "colour_name": "Phantom Pink"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "brand": "covergirl",
+    "name": "CoverGirl Outlast Lipcolor Moisturizing Clear Topcoat (500)",
+    "price": "12.99",
+    "price_sign": null,
+    "currency": null,
+    "image_link": "https://d3t32hsnjxo7q6.cloudfront.net/i/00bee78599bf386be435237a1515fdb7_ra,w158,h184_pa,w158,h184.jpg",
+    "product_link": "https://well.ca/products/covergirl-outlast-lipcolor_103284.html",
+    "website_link": "https://well.ca",
+    "description": "CoverGirl Outlast Lipcolor Moisturizing Clear Topcoat is a moisturizing lip gloss that keeps lips feeling moist, soft \u0026 smooth.Features: Moisturizing formulaSafe for sensitive skinFragrance freeIngredients: Sucrose Polycottonseedate, Ozokerite, Beeswax/ Cire D'Abeille, Tocopheryl Acetate, Tocopherol, Propyl Gallate, Propylparaben, Acetyl Glucosamine, Cocos Nucifera (Coconut Oil), Aloe Barbadensis Leaf Extract, Theobroma Cacao (Cocoa) Seed Butter, Butyrospermum Parkii (Shea Butter), Sodium Saccharin, Flavor/Aroma, Eu Inci, Sucrose Polycottonseedate, Ozokerite, Cera Alba, Tocopheryl Acetate, Tocopherol, Propylparaben, Propyl Gallate, Acetyl Glucosamine, Cocos Nucifera (Coconut Oil), Aloe Barbadensis Leaf Extract, Theobroma Cacao (Cocoa) Seed Butter, Butyrospermum Parkii (Shea Butter), Sodium Saccharin, Aroma",
+    "rating": null,
+    "category": "lipstick",
+    "product_type": "lipstick",
+    "tag_list": [],
+    "created_at": "2016-10-01T18:25:51.301Z",
+    "updated_at": "2017-12-23T20:51:01.555Z",
+    "product_api_url": "http://makeup-api.herokuapp.com/api/v1/products/113.json",
+    "api_featured_image": "//s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/113/original/data?1514062261",
+    "product_colors": []
+  },
+  {
+    "id": 105,
+    "brand": "covergirl",
+    "name": "CoverGirl Colorlicious Lipstick",
+    "price": "10.49",
+    "price_sign": null,
+    "currency": null,
+    "image_link": "https://d3t32hsnjxo7q6.cloudfront.net/i/c88809fbffe05fb9594103e635387152_ra,w158,h184_pa,w158,h184.jpg",
+    "product_link": "https://well.ca/products/covergirl-colorlicious-lipstick_103162.html",
+    "website_link": "https://well.ca",
+    "description": "CoverGirl Colorlicious Lipstick gives you rich, satisfying color in shades you can't help but crave!Features: Deliciously rich color infused with shea butterFull coverage color, high shine intensityNatural butters help keep lips suppleLasting colourIngredients:\n Ricinus Communis (Castor) Seed Oil, Isopropyl Isostearate, Mica, \nEthylhexyl Hydroxystearate, Acetylated Lanolin, Ozokerite, Euphorbia \nCerifera (Candelilla) Wax/Cire De Candelilla, Paraffin, Squalane, \nCopernicia Cerifera (Carnauba) Wax/Cire De Carnauba, Cetyl Lactate, \nCetyl Alcohol, Fragrance/Parfum, Ascorbyl Palmitate, Tocopheryl Acetate,\n Maltodextrin, Camellia Sinensis Leaf Extract, Butyrospermum Parkii \n(Shea) Butter, Silk Powder/Poudre De Soie, Persea Gratissima (Avocado) \nOil, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Extract, \nPropylparaben, Hydrogenated Vegetable Oil, Retinyl Palmitate, Some \nShades Also Contain/Certaines Teintes Contiennent Aussi: Lauroyl Lysine,\n Synthetic Fluorphlogopite, May Contain/Peut Contenir: Titanium Dioxide,\n Red 7 Lake, Yellow 5 Lake, Red 6 Lake, Iron Oxides, Blue 1 Lake, \nCarmine, Red 27 Lake, Yellow 6 Lake, Orange 5, Red 27",
+    "rating": null,
+    "category": "lipstick",
+    "product_type": "lipstick",
+    "tag_list": [],
+    "created_at": "2016-10-01T18:25:42.891Z",
+    "updated_at": "2017-12-27T01:53:08.088Z",
+    "product_api_url": "http://makeup-api.herokuapp.com/api/v1/products/105.json",
+    "api_featured_image": "//s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/105/original/data?1514063312",
+    "product_colors": [
+      {
+        "hex_value": "#ECA4BE",
+        "colour_name": "Verve Violet"
+      },
+      {
+        "hex_value": "#BF837C",
+        "colour_name": "Sultry Sienna"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "brand": "covergirl",
+    "name": "CoverGirl Outlast Lipcolor",
+    "price": "12.99",
+    "price_sign": null,
+    "currency": null,
+    "image_link": "https://d3t32hsnjxo7q6.cloudfront.net/i/be04329866e96a0077545d230489d7a9_ra,w158,h184_pa,w158,h184.jpeg",
+    "product_link": "https://well.ca/products/covergirl-outlast-lipcolor-plum_97226.html",
+    "website_link": "https://well.ca",
+    "description": "CoverGirls very popular longwear lip color just got better! The advanced formula with resilient, brilliant color and new applicator gives you up to 24 hours of color in just 2 easy, breezy steps.Features:Lasts up to 24 hoursBeautiful shades that are food proof and transfer resistant all day!Moisturizing topcoat keeps lips feeling moist, soft and smoothApplication Tips: Apply color to clean lips. Let dry 60 seconds. Apply moisturizing topcoat. Reapply topcoat like a balm throughout the day to refresh your look and feel.",
+    "rating": 5.0,
+    "category": "lipstick",
+    "product_type": "lipstick",
+    "tag_list": [],
+    "created_at": "2016-10-01T18:25:39.503Z",
+    "updated_at": "2017-12-27T01:46:54.379Z",
+    "product_api_url": "http://makeup-api.herokuapp.com/api/v1/products/102.json",
+    "api_featured_image": "//s3.amazonaws.com/donovanbailey/products/api_featured_images/000/000/102/original/data?1514062260",
+    "product_colors": [
+      {
+        "hex_value": "#864058",
+        "colour_name": "Plum Berry"
+      },
+      {
+        "hex_value": "#996066",
+        "colour_name": "Nude"
+      },
+      {
+        "hex_value": "#9C5961",
+        "colour_name": "Wine to Five"
+      },
+      {
+        "hex_value": "#8B3158",
+        "colour_name": "Wild Berry"
+      },
+      {
+        "hex_value": "#744144",
+        "colour_name": "Cinnamon Stick"
+      },
+      {
+        "hex_value": "#783E49",
+        "colour_name": "Brazen Raisin"
+      }
+    ]
+  }
+]
