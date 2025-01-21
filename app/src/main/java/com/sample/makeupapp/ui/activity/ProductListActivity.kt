@@ -1,6 +1,8 @@
 package com.sample.makeupapp.ui.activity
 
+import android.graphics.Color.parseColor
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
@@ -16,14 +18,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,7 +33,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -39,20 +40,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -61,17 +62,24 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import coil.compose.rememberAsyncImagePainter
 import com.sample.makeupapp.R
+import com.sample.makeupapp.constants.CardName
 import com.sample.makeupapp.constants.Constants.DEFAULT_VALUE
+import com.sample.makeupapp.constants.Constants.EXTRA_DATA_KEY
+import com.sample.makeupapp.constants.Constants.MY_DEBUG_KEY
 import com.sample.makeupapp.model.Product
 import com.sample.makeupapp.ui.theme.MakeupAppTheme
 import com.sample.makeupapp.viewmodel.ProductListViewModel
 
+// class for Display Product information
 class ProductListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val data = intent.getStringExtra(EXTRA_DATA_KEY)
+        val isForProductList = data == CardName.PRODUCT_LIST.toString()
+
         setContent {
             MakeupAppTheme {
-                Navigation()
+                Navigation(isForProductList)
             }
         }
     }
@@ -79,15 +87,19 @@ class ProductListActivity : ComponentActivity() {
 
 // to Navigate between different composable
 @Composable
-fun Navigation() {
+fun Navigation(isForProductList: Boolean) {
     val navController = rememberNavController()
     val viewModel = ProductListViewModel()
-    LaunchedEffect(key1 = "GET_PRODUCTS_BY_BRAND") {
-        viewModel.getProductsByBrand()
+
+    LaunchedEffect(key1 = "GET_PRODUCTS") {
+        if (isForProductList)
+            viewModel.getProducts()
+        else
+            viewModel.getProductsByBrand()
     }
     NavHost(navController = navController, startDestination = "product_list") {
         composable("product_list") {
-            ProductListScreen(navController, viewModel)
+            ProductListScreen(navController, viewModel, isForProductList)
         }
         composable(
             route = "product_detail/{product_id}",
@@ -107,8 +119,12 @@ fun Navigation() {
 
 // To design Product List UI
 @Composable
-fun ProductListScreen(navController: NavHostController, viewModel: ProductListViewModel) {
-    ProductListScreenDesign(navController, viewModel)
+fun ProductListScreen(
+    navController: NavHostController,
+    viewModel: ProductListViewModel,
+    isForProductList: Boolean
+) {
+    ProductListScreenDesign(navController, viewModel, isForProductList)
 }
 
 // To design Product Detail UI
@@ -123,13 +139,19 @@ fun ProductDetailScreen(
 
 // To design Product List screen Design
 @Composable
-fun ProductListScreenDesign(navController: NavHostController?, viewModel: ProductListViewModel?) {
+fun ProductListScreenDesign(
+    navController: NavHostController?,
+    viewModel: ProductListViewModel?,
+    isForProductList: Boolean
+) {
+    val context = LocalContext.current as ProductListActivity
+    val screenTitle = if (isForProductList) "Product List" else " Product By Brand"
     viewModel?.let {
         Scaffold(topBar = {
             AppBarTop(
-                title = "Product List",
-                icon = Icons.Default.Home,
-                {})
+                title = screenTitle,
+                icon = Icons.Default.ArrowBack
+            ) { context.finish() }
         }) { paddingValue ->
             Column(
                 modifier = Modifier
@@ -160,14 +182,12 @@ fun ProductDetailScreenDesign(
                 .fillMaxSize()
                 .padding(padding)
                 .background(color = colorResource(id = R.color.white))
+                .verticalScroll(rememberScrollState())
         ) {
-            Surface(modifier = Modifier.fillMaxSize(), color = Color.LightGray, content = {
-                if (productDetail != null) {
-                    ProductDetailDesign(productDetail, {}, isDetailScreen = true)
-                }
-            })
+            if (productDetail != null) {
+                ProductDetailDesign(productDetail, {}, isDetailScreen = true)
+            }
         }
-
     }
 }
 
@@ -176,12 +196,17 @@ fun ProductDetailScreenDesign(
 private fun ListScreenDesign(viewModel: ProductListViewModel, navController: NavHostController?) {
     val productList by viewModel.productList.observeAsState(emptyList())
     val isLoading = viewModel.isLoading
+    val isError = viewModel.isError
+    val errorMessage = viewModel.errorMessage
     if (isLoading.value) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
         }
+    } else if (isError.value) {
+        Log.d(MY_DEBUG_KEY, errorMessage.value)
+        ShowError(errorMessage.value)
     } else {
-        LazyColumn() {
+        LazyColumn {
             items(productList) {
                 ProductListDesign(it, {
                     navController?.navigate("product_detail/${it.id}")
@@ -189,6 +214,36 @@ private fun ListScreenDesign(viewModel: ProductListViewModel, navController: Nav
             }
         }
     }
+
+}
+
+@Composable
+fun ShowError(errorMessage: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp), contentAlignment = Alignment.Center, content = {
+            Column {
+                Text(
+                    text = "Error!",
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = errorMessage,
+                    fontSize = 15.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+
+        }
+    )
 
 }
 
@@ -230,12 +285,12 @@ fun ProductDetailDesign(
     isDetailScreen: Boolean
 ) {
     Card(
-        shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.cardElevation(10.dp),
+        shape = RoundedCornerShape(15.dp),
+        elevation = CardDefaults.cardElevation(15.dp),
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 12.dp, end = 12.dp, top = 6.dp, bottom = 6.dp)
-            .clickable(onClick = { onItemClick.invoke() })
+            .clickable(onClick = { onItemClick.invoke() }, enabled = !isDetailScreen)
     ) {
         Column(
             modifier = Modifier
@@ -254,7 +309,6 @@ fun ProductDetailDesign(
 // To design item elements of the product list
 @Composable
 fun ProductItemDetails(productObject: Product, isDetailScreen: Boolean) {
-    var isExpanded by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -266,31 +320,35 @@ fun ProductItemDetails(productObject: Product, isDetailScreen: Boolean) {
             fontWeight = FontWeight.Bold,
             maxLines = 2
         )
-        Text(text = "Price : ${productObject.price ?: "00"}$")
+        Text(text = "Price: ${productObject.price ?: "00"}$")
         Text(
-            text = "Brand:${productObject.brand ?: "D"} ",
+            text = "Brand: ${productObject.brand ?: "D"} ",
             maxLines = 1,
             style = MaterialTheme.typography.bodyMedium,
             overflow = TextOverflow.Ellipsis,
         )
         Text(
-            text = productObject.description ?: DEFAULT_VALUE,
+            text = "Description: ${productObject.description ?: DEFAULT_VALUE}",
             style = MaterialTheme.typography.bodyMedium,
             maxLines = if (isDetailScreen) 20 else 3,
             overflow = TextOverflow.Ellipsis
         )
         if (isDetailScreen && productObject.productColors.isNotEmpty()) {
-            Row() {
+            Column {
                 Text(
                     text = "Color : ",
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Bold,
                 )
-                LazyRow() {
+                LazyRow {
                     items(productObject.productColors) {
                         Text(
                             text = "${it.colourName}",
-                            modifier = Modifier.padding(10.dp),
+                            modifier = Modifier
+                                .padding(10.dp)
+                                .background(getColor(it.hexValue)),
                             style = MaterialTheme.typography.bodyMedium,
+                            color = Color.White,
                         )
                     }
                 }
@@ -298,6 +356,10 @@ fun ProductItemDetails(productObject: Product, isDetailScreen: Boolean) {
         }
 
     }
+}
+
+fun getColor(colorString: String?): Color {
+    return Color(parseColor(colorString))
 }
 
 @Composable
@@ -345,6 +407,7 @@ fun AppBarTop(title: String, icon: ImageVector, onBackPress: () -> Unit) {
 @Composable
 fun PreviewScreenList() {
     MakeupAppTheme {
-        ProductListScreenDesign(null, null)
+        ProductListScreenDesign(null, null, true)
     }
 }
+

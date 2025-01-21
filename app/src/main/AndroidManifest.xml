@@ -15,14 +15,19 @@
         android:theme="@style/Theme.MakeupApp"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activity.ProductListActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MakeupApp">
+            android:name=".ui.activity.DashboardActivity"
+            android:theme="@style/Theme.MakeupApp"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.ProductListActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MakeupApp">
         </activity>
     </application>
 
